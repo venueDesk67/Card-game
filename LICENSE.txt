@@ -1,0 +1,11 @@
+EQUINOX PROJECT LICENSE
+
+Copyright (c) 2026 EQUINOX project contributors.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this project source and original project assets, to use, copy, modify, and distribute the project for personal and non-commercial purposes, subject to retaining this notice.
+
+Commercial redistribution, sale of the project as a product, or use of any third-party material included in future versions requires separate rights clearance.
+
+The original 40-card identity data was preserved from the public repository at https://github.com/venueDesk67/Card-game. This notice does not assert ownership over material contributed by other authors or grant rights beyond those held by the project contributors.
+
+THE PROJECT IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.

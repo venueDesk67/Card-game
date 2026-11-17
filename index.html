@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#10121b">
+  <meta name="description" content="EQUINOX: Heaven vs Hell. An original fantasy trading card game.">
+  <title>EQUINOX: Heaven vs Hell</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="cards.js"></script>
+  <script defer src="rules.js"></script>
+  <script defer src="effects.js"></script>
+  <script defer src="game.js"></script>
+  <script defer src="cpu.js"></script>
+  <script defer src="ui.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" data-screen="menu" aria-label="Equinox home"><span class="brand-mark">✦</span><span>EQUINOX<small>HEAVEN VS HELL</small></span></a>
+    <div class="top-actions"><button class="ghost" id="soundToggle" type="button">SOUND: OFF</button><button class="ghost" id="rulesButton" type="button">RULES</button></div>
+  </header>
+
+  <main>
+    <section id="menuScreen" class="screen menu-screen active">
+      <div class="menu-art">
+        <div class="menu-orbit orbit-one"></div><div class="menu-orbit orbit-two"></div>
+        <div class="menu-emblem"><span>✦</span><b>☯</b><i>✧</i></div>
+        <p class="eyebrow">AN ORIGINAL TRADING CARD GAME</p>
+        <h1>EQUINOX</h1><h2>HEAVEN <span>VS</span> HELL</h2>
+        <p class="tagline">Two realms. One balance. Choose your side.</p>
+        <div class="menu-buttons">
+          <button class="primary large" id="startButton">BEGIN DUEL</button>
+          <button class="secondary large" data-screen="collection">CARD ARCHIVE</button>
+          <button class="secondary large" id="menuRulesButton">HOW TO PLAY</button>
+        </div>
+      </div>
+      <div class="menu-footer"><span>✧ AETHER · THE CELESTIAL ORDER</span><span>UMBRA · THE INFERNAL LEGION ✧</span></div>
+    </section>
+
+    <section id="factionScreen" class="screen">
+      <div class="section-heading"><p class="eyebrow">CHOOSE YOUR DESTINY</p><h2>Select your faction</h2><p>Your opponent will command the opposing realm.</p></div>
+      <div class="faction-grid">
+        <button class="faction-card aether-card" data-faction="Aether">
+          <img src="assets/factions/aether-symbol.svg" alt=""><span class="faction-kicker">THE CELESTIAL ORDER</span><strong>AETHER</strong><p>Protection, recovery and calculated power.</p><small>COMMANDER · CAEL</small>
+        </button>
+        <button class="faction-card umbra-card" data-faction="Umbra">
+          <img src="assets/factions/umbra-symbol.svg" alt=""><span class="faction-kicker">THE INFERNAL LEGION</span><strong>UMBRA</strong><p>Risk, destruction and relentless adaptation.</p><small>COMMANDER · DRAEVEN</small>
+        </button>
+      </div>
+      <div class="selection-controls"><label>CPU difficulty <select id="difficulty"><option value="easy">Easy</option><option value="normal" selected>Normal</option><option value="hard">Hard</option></select></label><button class="secondary" data-screen="menu">BACK</button></div>
+    </section>
+
+    <section id="duelScreen" class="screen duel-screen">
+      <div class="duel-heading"><div><p class="eyebrow">THE EQUINOX ARENA</p><h2 id="duelTitle">AETHER <span>VS</span> UMBRA</h2></div><div class="turn-indicator"><span id="turnLabel">TURN 1</span><strong id="phaseLabel">PLAYER MAIN PHASE</strong></div><button class="ghost" id="concedeButton">CONCEDE</button></div>
+      <div class="arena">
+        <div class="field-side opponent-side">
+          <div class="side-head"><div><span class="side-symbol umbra-symbol">☠</span><span id="opponentName">DRAEVEN · UMBRA</span></div><div class="life-display enemy-life"><small>OPPONENT LP</small><strong id="opponentLP">4000</strong><div class="life-track"><i id="opponentLifeBar"></i></div></div></div>
+          <div class="field-meta"><span>DECK <b id="opponentDeck">20</b></span><span>GRAVEYARD <b id="opponentGrave">0</b></span></div>
+          <div class="zone-row backrow-row" id="opponentBackrow" aria-label="Opponent spell and trap zones"></div>
+          <div class="zone-row monster-row" id="opponentMonsters" aria-label="Opponent monster zones"></div>
+        </div>
+        <div class="arena-divider"><span>✧</span><b>THE BALANCE</b><span>✧</span></div>
+        <div class="field-side player-side">
+          <div class="zone-row monster-row" id="playerMonsters" aria-label="Your monster zones"></div>
+          <div class="zone-row backrow-row" id="playerBackrow" aria-label="Your spell and trap zones"></div>
+          <div class="field-meta"><span>GRAVEYARD <b id="playerGrave">0</b></span><span>DECK <b id="playerDeck">20</b></span></div>
+          <div class="side-head player-head"><div><span class="side-symbol aether-symbol" id="playerSymbol">✦</span><span id="playerName">CAEL · AETHER</span></div><div class="life-display player-life"><small>YOUR LP</small><strong id="playerLP">4000</strong><div class="life-track"><i id="playerLifeBar"></i></div></div></div>
+        </div>
+      </div>
+      <section class="hand-panel">
+        <div class="hand-top"><div><p class="eyebrow">YOUR HAND</p><h3 id="handCount">5 CARDS</h3></div><div class="hand-tip" id="handTip">Select a card to inspect it.</div></div>
+        <div class="hand" id="playerHand" aria-label="Your hand"></div>
+      </section>
+      <section class="control-panel">
+        <div class="selected-card-info"><div class="selected-art" id="selectedArt">✧</div><div><small id="selectedType">NO CARD SELECTED</small><strong id="selectedName">Your move</strong><p id="selectedDescription">Choose a card from your hand or a monster on the field.</p></div></div>
+        <div class="action-buttons">
+          <button class="action" id="summonButton" disabled>SUMMON / SET</button>
+          <button class="action" id="effectButton" disabled>USE EFFECT</button>
+          <button class="action" id="attackButton" disabled>ATTACK</button>
+          <button class="action" id="positionButton" disabled>CHANGE POSITION</button>
+          <button class="primary" id="endTurnButton">END TURN ↗</button>
+        </div>
+      </section>
+      <section class="log-panel"><div class="log-heading"><span>DUEL LOG</span><button class="ghost compact" id="clearLogButton">CLEAR</button></div><div id="duelLog" aria-live="polite"></div></section>
+    </section>
+
+    <section id="collectionScreen" class="screen">
+      <div class="section-heading"><p class="eyebrow">THE ARCHIVE</p><h2>Card collection</h2><p>Explore the complete 40-card founding set.</p></div>
+      <div class="collection-filters"><select id="factionFilter"><option value="all">All factions</option><option value="Aether">Aether</option><option value="Umbra">Umbra</option></select><select id="typeFilter"><option value="all">All types</option><option value="Monster">Monsters</option><option value="Spell">Spells</option><option value="Trap">Traps</option></select></div>
+      <div class="collection-grid" id="collectionGrid"></div><button class="secondary back-button" data-screen="menu">BACK TO MENU</button>
+    </section>
+  </main>
+
+  <div class="modal hidden" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-card"><button class="modal-close" id="modalClose" aria-label="Close">×</button><div id="modalContent"></div></div></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <footer><span>EQUINOX: HEAVEN VS HELL</span><span>AN ORIGINAL UNIVERSE · VERSION 1.0</span></footer>
+</body>
+</html>
