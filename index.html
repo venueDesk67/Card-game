@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#10121b">
+  <title>EQUINOX: Heaven vs Hell</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div><div class="eyebrow">AN ORIGINAL TRADING CARD GAME</div><h1>EQUINOX <span>HEAVEN vs HELL</span></h1></div>
+  <div class="header-actions"><button id="newGame" class="secondary">New duel</button><button id="rulesBtn" class="secondary">Rules</button></div>
+</header>
+<main>
+  <section class="statusbar">
+    <div class="turnbox"><span class="eyebrow">TURN</span><strong id="turnNumber">1</strong><span id="phaseLabel">Player main phase</span></div>
+    <div class="lp player-lp"><span>AETHER · YOU</span><strong id="playerLP">4000</strong></div>
+    <div class="lp ai-lp"><span id="aiName">UMBRA · CPU</span><strong id="aiLP">4000</strong></div>
+  </section>
+  <section class="arena">
+    <div class="side-label enemy-label"><span>UMBRA</span><small>INFERNAL LEGION · CPU</small></div>
+    <div class="field-half enemy-half">
+      <div class="zone-row" id="aiBackrow"></div>
+      <div class="zone-row monster-row" id="aiMonsters"></div>
+      <div class="field-meta"><span id="aiDeckCount">DECK 20</span><span id="aiGraveCount">GRAVEYARD 0</span></div>
+    </div>
+    <div class="battle-divider"><span>✦ THE BALANCE ✦</span></div>
+    <div class="field-half player-half">
+      <div class="field-meta"><span id="playerGraveCount">GRAVEYARD 0</span><span id="playerDeckCount">DECK 20</span></div>
+      <div class="zone-row monster-row" id="playerMonsters"></div>
+      <div class="zone-row" id="playerBackrow"></div>
+    </div>
+    <div class="side-label player-label"><span>AETHER</span><small>CELESTIAL ORDER · YOU</small></div>
+  </section>
+  <section class="hand-panel">
+    <div class="hand-heading"><div><span class="eyebrow">YOUR HAND</span><h2 id="handTitle">Aether cards</h2></div><div class="hand-tools"><span id="handCount">5 cards</span><button id="endTurn" class="primary">End turn ↗</button></div></div>
+    <div id="hand" class="hand"></div>
+  </section>
+  <section class="action-panel">
+    <div class="action-copy"><strong id="actionTitle">Your move</strong><span id="actionText">Select a card from your hand to summon, set or activate it.</span></div>
+    <div class="action-buttons">
+      <button id="useEffect" class="secondary" disabled>Use effect</button><button id="attackMode" class="secondary" disabled>Attack</button>
+      <button id="defMode" class="secondary" disabled>Change position</button>
+      <button id="cancelAction" class="secondary">Cancel</button>
+    </div>
+  </section>
+  <section class="log-panel"><div class="log-title">DUEL LOG</div><div id="log" aria-live="polite"></div></section>
+</main>
+<div id="modal" class="modal hidden"><div class="modal-card"><button id="closeModal" class="close">×</button><div id="modalContent"></div></div></div>
+<script src="cards.js"></script><script src="game.js"></script>
+</body>
+</html>
